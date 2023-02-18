@@ -5,8 +5,8 @@ import BreadCrumb from "components/Breadcrumb";
 import Footer from "parts/HomePage/Footer";
 import SiteMap from "parts/HomePage/SiteMap";
 
-// import ShippingCart from "parts/Cart/ShippingCart";
-// import ShippingDetails from "parts/Cart/ShippingDetails";
+import ShippingCart from "parts/Cart/ShippingCart";
+import ShippingDetails from "parts/Cart/ShippingDetails";
 
 export default function Cart() {
   return (
