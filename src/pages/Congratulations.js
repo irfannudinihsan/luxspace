@@ -6,13 +6,14 @@ import Header from "parts/Header";
 import BreadCrumb from "components/Breadcrumb";
 import Footer from "parts/HomePage/Footer";
 import SiteMap from "parts/HomePage/SiteMap";
+import Document from "../parts/Document";
 
 // import ShippingCart from "parts/Cart/ShippingCart";
 // import ShippingDetails from "parts/Cart/ShippingDetails";
 
 export default function Congratulations() {
   return (
-    <>
+    <Document>
       <Header theme="black" />
 
       <BreadCrumb
@@ -50,6 +51,6 @@ export default function Congratulations() {
         <SiteMap />
         <Footer />
       </section>
-    </>
+    </Document>
   );
 }

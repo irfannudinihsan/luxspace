@@ -7,10 +7,13 @@ import SiteMap from "parts/HomePage/SiteMap";
 
 import ShippingCart from "parts/Cart/ShippingCart";
 import ShippingDetails from "parts/Cart/ShippingDetails";
+import useScrollToTop from "helpers/hooks/useScrollToTop";
+import Document from "../parts/Document";
 
 export default function Cart() {
+  useScrollToTop();
   return (
-    <>
+    <Document>
       <Header theme="black" />
 
       <BreadCrumb
@@ -32,6 +35,6 @@ export default function Cart() {
 
       <SiteMap />
       <Footer />
-    </>
+    </Document>
   );
 }

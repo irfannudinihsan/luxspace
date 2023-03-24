@@ -8,23 +8,18 @@ import Clients from "parts/HomePage/Clients";
 import SiteMap from "parts/HomePage/SiteMap";
 import Footer from "parts/HomePage/Footer";
 
-import useModalDOM from "helpers/hooks/useModalDOM";
-
-
-import useScrollAnchor from "helpers/hooks/useScrollAnchor";
+import Document from "../parts/Document";
 
 export default function HomePage() {
-  useScrollAnchor()
-  useModalDOM()
   return (
-    <>
-      <Header theme="white" position="absolute"/>
-      <Hero/>
-      <BrowseRoom/>
-      <JustArrived/>
-      <Clients/>
-      <SiteMap/>
-      <Footer/>
-    </>
+    <Document>
+      <Header theme="white" position="absolute" />
+      <Hero />
+      <BrowseRoom />
+      <JustArrived />
+      <Clients />
+      <SiteMap />
+      <Footer />
+    </Document>
   );
 }

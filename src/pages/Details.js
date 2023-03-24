@@ -8,10 +8,13 @@ import Suggestion from "parts/Details/Suggestion";
 import SiteMap from "parts/HomePage/SiteMap";
 import Footer from "parts/HomePage/Footer";
 
+import PageErrorMessage from "parts/PageErrorMessage";
+
+import Document from "parts/Document";
 import useAsync from "helpers/hooks/useAsync";
 import fetch from "helpers/fetch";
 
-function LoadingSlider() {
+function LoadingProductDetails() {
   return (
     <section className="container mx-auto">
       <div className="flex flex-wrap my-4 md:my-12">
@@ -76,7 +79,10 @@ function LoadingSuggestion() {
             .fill()
             .map((_, index) => {
               return (
-                <div className="px-3 flex-none" style={{ width: 320 }} key={index}>
+                <div
+                  className="px-3 flex-none"
+                  style={{ width: 320 }}
+                  key={index}>
                   <div className="rounded-xl p-4 pb-8 relative bg-white">
                     <div className="rounded-xl overflow-hidden card-shadow w-full h-36">
                       <div
@@ -99,15 +105,13 @@ function LoadingSuggestion() {
 export default function Details() {
   const { idp } = useParams();
 
-  const { data, run, isLoading } = useAsync();
+  const { data, error, run, isLoading, isError } = useAsync();
   React.useEffect(() => {
     run(fetch({ url: `/api/products/${idp}` }));
   }, [run, idp]);
 
-  console.log("hai", data);
-
   return (
-    <>
+    <Document>
       <Header theme="black" />
 
       <BreadCrumb
@@ -118,15 +122,28 @@ export default function Details() {
         ]}
       />
 
-      {isLoading ? <LoadingSlider /> : <ProductDetails data={data} />}
-      {isLoading ? (
-        <LoadingSuggestion />
+      {isError ? (
+        <PageErrorMessage
+          title="Product Not Found"
+          body={error.errors.message}
+        />
       ) : (
-        <Suggestion data={data?.relatedProducts || {}} />
+        <>
+          {isLoading ? (
+            <LoadingProductDetails />
+          ) : (
+            <ProductDetails data={data} />
+          )}
+          {isLoading ? (
+            <LoadingSuggestion />
+          ) : (
+            <Suggestion data={data?.relatedProducts || {}} />
+          )}
+        </>
       )}
 
       <SiteMap />
       <Footer />
-    </>
+    </Document>
   );
 }

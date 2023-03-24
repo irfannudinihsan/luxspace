@@ -6,7 +6,7 @@ import Carousel from "components/Carousel";
 
 import useAsync from "helpers/hooks/useAsync";
 import fetch from "helpers/fetch";
-// import "helpers/format/currency";
+
 
 function Loading() {
   return Array(6)
