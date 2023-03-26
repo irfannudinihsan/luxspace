@@ -17,7 +17,7 @@ export default function Carousel({ children, refContainer }) {
   const posInitial = useRef();
   const posX1 = useRef();
   const posX2 = useRef();
-  const posFinal = useRef;
+  const posFinal = useRef();
   const isAllowShift = useRef(true); /* untuk geser */
   const cards = useRef();
   const cardCount = cards.current?.length || 0;
@@ -68,7 +68,7 @@ export default function Carousel({ children, refContainer }) {
           setIndex((prev) => prev - 1);
           refDragHandler.current.style.left = `${
             posInitial.current + cardSize
-          }`;
+          }px`;
         }
       }
       isAllowShift.current = false;
@@ -160,7 +160,7 @@ export default function Carousel({ children, refContainer }) {
       refForwardDragHandler.removeEventListener("touchend", onDragEnd);
       refForwardDragHandler.removeEventListener("touchmove", onDragMove);
       refForwardDragHandler.removeEventListener("click", onClick);
-      refForwardDragHandler.addEventListener("transitionend", fnCheckIndex);
+      refForwardDragHandler.removeEventListener("transitionend", fnCheckIndex);
     };
   }, [onDragStart, onDragEnd, onDragMove, onClick, fnCheckIndex]);
   
