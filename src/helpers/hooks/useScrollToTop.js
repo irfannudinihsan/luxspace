@@ -1,7 +1,5 @@
-import React from "react";
 import { useLayoutEffect } from "react";
-import { useHistory, useNavigate } from "react-router-dom";
-
+import { useNavigate } from "react-router-dom";
 
 export default function useScrollToTop() {
   const navigate = useNavigate();
