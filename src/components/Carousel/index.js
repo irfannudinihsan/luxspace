@@ -5,8 +5,6 @@ import { addClass, removeClass } from "helpers/format/classNameModifier";
 export default function Carousel({ children, refContainer }) {
   const refDragHandler = useRef(null);
   const containerClientRect = refContainer.current.getBoundingClientRect();
- 
-
   const [index, setIndex] = useState(0);
 
   const threshold = 100;
@@ -18,14 +16,11 @@ export default function Carousel({ children, refContainer }) {
   const posX1 = useRef();
   const posX2 = useRef();
   const posFinal = useRef();
-  const isAllowShift = useRef(true); /* untuk geser */
+  const isAllowShift = useRef(true);
   const cards = useRef();
   const cardCount = cards.current?.length || 0;
   const cardSize = cards.current?.[0].offsetWidth || 0;
 
- 
-
-  //berhenti meggunakan carousel
   const fnCheckIndex = useCallback(
     (e) => {
       if (e.propertyName === "left") {
@@ -47,13 +42,13 @@ export default function Carousel({ children, refContainer }) {
           refDragHandler.current.style.left = `${(cardCount - 1) * cardSize}px`;
           setIndex(cardCount - 1);
         }
+
         isAllowShift.current = true;
       }
     },
     [cardCount, cardSize, index, itemToShow]
   );
 
-  //shift 
   const fnShiftItem = useCallback(
     (direction) => {
       addClass(refDragHandler.current, "transition-all duration-200");
@@ -71,8 +66,8 @@ export default function Carousel({ children, refContainer }) {
           }px`;
         }
       }
+
       isAllowShift.current = false;
-      refDragHandler.current.classList.add("transition-all");
     },
     [cardSize]
   );
@@ -96,7 +91,7 @@ export default function Carousel({ children, refContainer }) {
     },
     [posX1, posX2]
   );
-  //ondrag end
+
   const onDragEnd = useCallback(
     (e) => {
       e = e || window.event;
@@ -118,18 +113,16 @@ export default function Carousel({ children, refContainer }) {
     [fnShiftItem]
   );
 
-  //start
   const onDragStart = useCallback(
     (e) => {
       e = e || window.event;
       e.preventDefault();
 
       posInitial.current = refDragHandler.current.offsetLeft;
+
       if (e.type === "touchstart") {
-        //mobile
         posX1.current = e.touches[0].clientX;
       } else {
-        //web
         posX1.current = e.clientX;
         document.onmouseup = onDragEnd;
         document.onmousemove = onDragMove;
@@ -144,8 +137,6 @@ export default function Carousel({ children, refContainer }) {
   }, []);
 
   useLayoutEffect(() => {
-    /* untuk panggil function */
-    /* untuk simpan variabel sementara */
     const refForwardDragHandler = refDragHandler.current;
 
     refForwardDragHandler.onmousedown = onDragStart;
@@ -154,7 +145,6 @@ export default function Carousel({ children, refContainer }) {
     refForwardDragHandler.addEventListener("touchmove", onDragMove);
     refForwardDragHandler.addEventListener("click", onClick);
     refForwardDragHandler.addEventListener("transitionend", fnCheckIndex);
-
     return () => {
       refForwardDragHandler.removeEventListener("touchstart", onDragStart);
       refForwardDragHandler.removeEventListener("touchend", onDragEnd);
@@ -163,18 +153,20 @@ export default function Carousel({ children, refContainer }) {
       refForwardDragHandler.removeEventListener("transitionend", fnCheckIndex);
     };
   }, [onDragStart, onDragEnd, onDragMove, onClick, fnCheckIndex]);
-  
+
   useLayoutEffect(() => {
-    if(refDragHandler.current) {
-      cards.current = refDragHandler.current.getElementsByClassName("card")
+    if (refDragHandler.current) {
+      cards.current = refDragHandler.current.getElementsByClassName("card");
     }
-  },[])
+  }, []);
+
   return (
-    <>
-      <div ref={refDragHandler} className="flex -mx-4 flex-row relative" style={{ paddingLeft : containerClientRect.left - 16 }}>
-        {children}
-     
-      </div>
-    </>
+    <div
+      ref={refDragHandler}
+      className="flex -mx-4 flex-row relative"
+      style={{ paddingLeft: containerClientRect.left - 16 }}
+    >
+      {children}
+    </div>
   );
 }
