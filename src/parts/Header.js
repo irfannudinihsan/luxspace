@@ -1,7 +1,7 @@
 import { Link } from "react-router-dom";
 
 import { useGlobalContext } from "helpers/hooks/useGlobalContext";
-import { useLayoutEffect, useRef, useState, UseState } from "react";
+import { useLayoutEffect, useRef, useState } from "react";
 import { ReactComponent as IconCart } from "assets/images/icon-cart.svg";
 
 export default function Header({ theme, position }) {
